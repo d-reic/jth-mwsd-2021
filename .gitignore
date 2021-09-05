@@ -3,6 +3,9 @@ node_modules/
 /dist
 /public
 
+# expo
+.expo/
+
 # Log files
 npm-debug.log*
 yarn-debug.log*
