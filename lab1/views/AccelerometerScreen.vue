@@ -24,7 +24,7 @@ export default {
     }
   },
   mounted: function () {
-    Accelerometer.setUpdateInterval(1000)
+    Accelerometer.setUpdateInterval(16)
     Accelerometer.addListener((accelerometerData) => {
       this.accelerometerData = accelerometerData
     })
