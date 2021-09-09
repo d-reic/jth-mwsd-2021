@@ -1,14 +1,14 @@
 <template>
   <view class="container">
     <text class="text-color-primary">GPS</text>
-    <touchable-opacity :on-press="getLocation">
-      <text class="text-field-title">Get Location</text>
-    </touchable-opacity>
-    <text class="text-field-title">Location Object:</text>
-    <text>{{ location }}</text>
-    <text class="text-field-title">Latitude Only:</text>
+    <button title="Get Location" @press="getLocation">      
+    </button>
+    <text class="text-field-title">Latitude:</text>
     <text>{{ latitude }}</text>
-
+<text class="text-field-title">Longitude:</text>
+    <text>{{ longitude }}</text>
+    <text class="text-field-title">Altitude:</text>
+    <text>{{ altitude }}</text>
     <text class="text-error">{{ errorMessage }}</text>
     <button title="Go to menu screen" @press="goToMenuScreen"></button>
   </view>
@@ -30,6 +30,8 @@ export default {
     return {
       location: {},
       latitude: '',
+      longitude: '',
+      altitude: '',
       errorMessage: '',
     }
   },
@@ -46,6 +48,8 @@ export default {
             Location.getCurrentPositionAsync({}).then((location) => {
               this.location = location
               this.latitude = location.coords.latitude
+              this.longitude = location.coords.longitude
+              this.altitude = location.coords.altitude
               this.errorMessage = ''
             })
           }
