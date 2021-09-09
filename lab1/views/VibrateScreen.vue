@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import {Vibration} from 'react-native'
 export default {
   // Declare `navigation` as a prop
   props: {
@@ -14,17 +15,13 @@ export default {
       type: Object,
     },
   },
-  data() {
-    return {
-      accelerometerData: {},
-    }
-  },
   methods: {
     goToMenuScreen() {
       this.navigation.navigate('Menu')
     },
     startVibration() {
       console.log('vibrate')
+      Vibration.vibrate(1000);
     },
   },
 }
