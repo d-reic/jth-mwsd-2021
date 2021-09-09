@@ -1,11 +1,36 @@
 <template>
   <view class="container">
     <text class="text-color-primary">Movement</text>
+    <text class="text-color-primary">X: {{ accelerometerData.x }}</text>
+    <text class="text-color-primary">Y: {{ accelerometerData.y }}</text>
+    <text class="text-color-primary">Z: {{ accelerometerData.z }}</text>
+        <image
+      v-if="accelerometerData.y > 1 || accelerometerData.y < 0.98"
+      :style="{ height: 150, width: 150 }"
+      :source="require('./../img/arrow_up.png')"
+    />
+        <image
+      v-if="accelerometerData.x > 0.1 || accelerometerData.x < -0.01"
+      :style="{ height: 150, width: 150 }"
+      :source="require('./../img/arrow_left.png')"
+    />
+        <image
+      v-if="accelerometerData.y > 1 || accelerometerData.y < 0.98"
+      :style="{ height: 150, width: 150 }"
+      :source="require('./../img/arrow_down.png')"
+    />
+        <image
+      v-if="accelerometerData.x > 0.1 || accelerometerData.x < -0.01"
+      :style="{ height: 150, width: 150 }"
+      :source="require('./../img/arrow_right.png')"
+    />
     <button title="Go to menu screen" @press="goToMenuScreen"></button>
   </view>
 </template>
 
 <script>
+import { Accelerometer } from 'expo-sensors'
+
 export default {
   // Declare `navigation` as a prop
   props: {
@@ -17,6 +42,12 @@ export default {
     return {
       accelerometerData: {},
     }
+  },
+  mounted: function () {
+    Accelerometer.setUpdateInterval(16)
+    Accelerometer.addListener((accelerometerData) => {
+        this.accelerometerData = accelerometerData
+    })
   },
   methods: {
     goToMenuScreen() {
