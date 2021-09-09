@@ -1,20 +1,15 @@
 <template>
   <view class="container">
     <text class="text-color-primary">Accelerometer</text>
-    <text class="text-color-primary">{{ accelerometerData.x }}</text>
-    <text class="text-color-primary">{{ accelerometerData.y }}</text>
-    <text class="text-color-primary">{{ accelerometerData.z }}</text>
+    <text class="text-color-primary">X: {{ accelerometerData.x }}</text>
+    <text class="text-color-primary">Y: {{ accelerometerData.y }}</text>
+    <text class="text-color-primary">Z: {{ accelerometerData.z }}</text>
     <button title="Go to menu screen" @press="goToMenuScreen"></button>
   </view>
 </template>
 
 <script>
 import { Accelerometer } from 'expo-sensors'
-
-Accelerometer.setUpdateInterval(1000);
-Accelerometer.addListener(accelerometerData => {
-  this.accelerometerData = accelerometerData;
-});
 
 export default {
   // Declare `navigation` as a prop
@@ -28,15 +23,18 @@ export default {
       accelerometerData: {},
     }
   },
+  mounted: function () {
+    Accelerometer.setUpdateInterval(1000)
+    Accelerometer.addListener((accelerometerData) => {
+      this.accelerometerData = accelerometerData
+    })
+  },
   methods: {
     goToMenuScreen() {
       this.navigation.navigate('Menu')
     },
   },
 }
-
-
-
 </script>
 
 <style>
