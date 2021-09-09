@@ -8,6 +8,9 @@
       @press="goToAccelerometerScreen"
     ></button>
     <button class="button" title="GPS" @press="goToGPSScreen"></button>
+     <button class="button" title="Vibration" @press="goToVibrationScreen"></button>
+     <button class="button" title="Language" @press="goToLanguageScreen"></button>
+     <button class="button" title="Movement" @press="goToMovementScreen"></button>
   </view>
 </template>
 
@@ -28,7 +31,16 @@ export default {
     },
     goToGPSScreen() {
       this.navigation.navigate('GPS')
+    },  
+     goToVibrationScreen() {
+      this.navigation.navigate('Vibrate')
     },
+       goToLanguageScreen() {
+      this.navigation.navigate('Language')
+    },
+       goToMovementScreen() {
+      this.navigation.navigate('Movement')
+    }
   },
 }
 </script>
@@ -44,6 +56,9 @@ export default {
   color: blue;
 }
 .button {
-  color: red;
+    background-color: #bbb;
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
 }
 </style>
