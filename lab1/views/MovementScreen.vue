@@ -5,22 +5,22 @@
     <text class="text-color-primary">Y: {{ accelerometerData.y }}</text>
     <text class="text-color-primary">Z: {{ accelerometerData.z }}</text>
         <image
-      v-if="accelerometerData.y > 1 || accelerometerData.y < 0.98"
+      v-if="accelerometerData.y > 1.2 || accelerometerData.y < 0.8"
       :style="{ height: 150, width: 150 }"
       :source="require('./../img/arrow_up.png')"
     />
         <image
-      v-if="accelerometerData.x > 0.1 || accelerometerData.x < -0.01"
+      v-if="accelerometerData.x > 0.2 || accelerometerData.x < -0.2"
       :style="{ height: 150, width: 150 }"
       :source="require('./../img/arrow_left.png')"
     />
         <image
-      v-if="accelerometerData.y > 1 || accelerometerData.y < 0.98"
+      v-if="accelerometerData.y > 1.2 || accelerometerData.y < 0.8"
       :style="{ height: 150, width: 150 }"
       :source="require('./../img/arrow_down.png')"
     />
         <image
-      v-if="accelerometerData.x > 0.1 || accelerometerData.x < -0.01"
+      v-if="accelerometerData.x > 0.2 || accelerometerData.x < -0.2"
       :style="{ height: 150, width: 150 }"
       :source="require('./../img/arrow_right.png')"
     />
@@ -44,9 +44,10 @@ export default {
     }
   },
   mounted: function () {
-    Accelerometer.setUpdateInterval(16)
+    Accelerometer.setUpdateInterval(500)
     Accelerometer.addListener((accelerometerData) => {
         this.accelerometerData = accelerometerData
+        console.log(accelerometerData.x)
     })
   },
   methods: {
