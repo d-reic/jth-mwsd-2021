@@ -3,7 +3,7 @@
     <text class="text-color-primary">Language</text>
     <text class="text-color-primary">Configured language: {{ language }}</text>
     <text class="text-color-primary" v-if="language == 'en_US'">This is an English text!</text>
-     <text class="text-color-primary" v-if="language == 'de_DE'">Das ist ein Text in deutscher Sprache!</text>
+     <text class="text-color-primary" v-if="language == 'de_DE' || language == 'de_US'">Das ist ein Text in deutscher Sprache!</text>
     <button title="Go to menu screen" @press="goToMenuScreen"></button>
   </view>
 </template>
