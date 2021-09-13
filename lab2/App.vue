@@ -1,16 +1,13 @@
 <template>
-  <view class="container">
-    <app-navigator></app-navigator>
-    <button :title="currentPage" @press="navigate"></button>
-  </view>
+  <app-navigator></app-navigator>
 </template>
 
 <script>
-import { createAppContainer, createStackNavigator } from 'vue-native-router'
+import { createAppContainer, createStackNavigator } from "vue-native-router";
 
-import SignUpComponent from './views/SignUpComponent.vue'
-import SignInComponent from './views/SignInComponent.vue'
-import ChatComponent from './views/ChatComponent.vue'
+import SignUpComponent from "./views/SignUpComponent.vue";
+import SignInComponent from "./views/SignInComponent.vue";
+import ChatComponent from "./views/ChatComponent.vue";
 
 const StackNavigator = createStackNavigator(
   {
@@ -19,26 +16,26 @@ const StackNavigator = createStackNavigator(
     Chat: ChatComponent,
   },
   {
-    initialRouteName: 'SignIn',
-  },
-)
+    initialRouteName: "SignIn",
+  }
+);
 
-const AppNavigator = createAppContainer(StackNavigator)
+const AppNavigator = createAppContainer(StackNavigator);
 
 export default {
   components: { AppNavigator },
   data() {
     return {
-      currentPage: 'Test',
-    }
+      currentPage: "Test",
+    };
   },
   methods: {
     navigate() {
-      console.log('Navigate')
+      console.log("Navigate");
       //this.navigation.navigate('Menu')
     },
   },
-}
+};
 </script>
 
 <style>
