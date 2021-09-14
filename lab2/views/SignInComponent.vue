@@ -12,6 +12,7 @@
       v-model="password"
     />
     <button title="Sign Up" @press="signUp"></button>
+     <button title="Chat" @press="chat"></button>
   </view>
 </template>
 
@@ -34,6 +35,9 @@ export default {
     },
     signIn() {
       // initiate signInProcess
+    },
+    chat() {
+this.navigation.navigate("Chat");
     },
   },
 };
