@@ -11,6 +11,7 @@
     <text v-for="message in messages" :key="message.key">{{
       message.text
     }}</text>
+    <button title="Sign out" @press="signOut"></button>
   </view>
 </template>
 
@@ -32,23 +33,30 @@
 <script>
 // Firebase App (the core Firebase SDK) is always required and
 // must be listed before other Firebase SDKs
-import firebase from "firebase/app"
+import firebase from "firebase/app";
 
 // Add the Firebase products that you want to use
 require("firebase/database");
+require("firebase/auth");
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBrma7NK0kAccH0lzJD_DvceOTDCSYKKfo",
   authDomain: "jth-mwsd-2021-reda21bw.firebaseapp.com",
-  databaseURL: "https://jth-mwsd-2021-reda21bw-default-rtdb.europe-west1.firebasedatabase.app/",
+  databaseURL:
+    "https://jth-mwsd-2021-reda21bw-default-rtdb.europe-west1.firebasedatabase.app/",
   projectId: "jth-mwsd-2021-reda21bw",
   storageBucket: "jth-mwsd-2021-reda21bw.appspot.com",
   messagingSenderId: "934426003388",
-  appId: "1:934426003388:web:442447560976af1d818db9"
+  appId: "1:934426003388:web:442447560976af1d818db9",
 };
 
 export default {
+  props: {
+    navigation: {
+      type: Object,
+    },
+  },
   data() {
     return { messageInput: "", messagesRef: "", messages: [] };
   },
@@ -61,6 +69,22 @@ export default {
           console.log({ err });
         }
       });
+    },
+    signOut() {
+      firebase
+        .auth()
+        .signOut()
+        .then((something) => {
+          console.log("Successfully logged out");
+         this.navigation.navigate("SignIn")
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode);
+          console.log(errorMessage);
+          // ..
+        });
     },
   },
 

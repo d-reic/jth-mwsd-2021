@@ -55,10 +55,12 @@ export default {
           .then((userCredential) => {
             // Signed in
             console.log("Signed in!")
-            this.navigation.navigate("Chat")
+            this.email="";
+            this.password="";
             const user = userCredential.user;
             console.log("user", user);
-            // ...
+            this.navigation.navigate("Chat")
+           
           })
           .catch((error) => {
             const errorCode = error.code;
