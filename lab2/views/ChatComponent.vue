@@ -1,34 +1,21 @@
 <template>
   <view class="container">
+    <text class="heading">Chat!</text>
+    <touchable-opacity :on-press="onPressMessage">
+      <text class="message" v-for="message in messages" :key="message.key"
+        >User {{ message.email }} sent this message: {{ message.text }}</text
+      ></touchable-opacity
+    >
     <text class="text-title-primary">Enter message</text>
     <text-input
+      class="message-input"
       v-model="messageInput"
       :style="{ height: 40, width: 100, borderColor: 'gray', borderWidth: 1 }"
     ></text-input>
-    <button title="Send" @press="onSendMessage"></button>
-
-    <text class="text-title-primary">Earlier messages</text>
-    <text v-for="message in messages" :key="message.key">{{
-      message.text
-    }}</text>
-    <button title="Sign out" @press="signOut"></button>
+    <button class="send-button" title="Send" @press="onSendMessage"></button>
+    <button class="button" title="Sign out" @press="signOut"></button>
   </view>
 </template>
-
-<style>
-.container {
-  background-color: white;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-}
-.text-title-primary {
-  color: blue;
-  margin-top: 10;
-  margin-bottom: 5;
-  font-size: 25;
-}
-</style>
 
 <script>
 // Firebase App (the core Firebase SDK) is always required and
@@ -63,12 +50,16 @@ export default {
 
   methods: {
     onSendMessage() {
-      this.messagesRef.push({ text: this.messageInput }, (err) => {
-        if (err) {
-          // Alert or show this error to the user if anything goes wrong
-          console.log({ err });
+      this.messagesRef.push(
+        { email: firebase.auth().currentUser.email, text: this.messageInput },
+        (err) => {
+          if (err) {
+            // Alert or show this error to the user if anything goes wrong
+            console.log({ err });
+          }
+          this.messageInput = "";
         }
-      });
+      );
     },
     signOut() {
       firebase
@@ -76,7 +67,7 @@ export default {
         .signOut()
         .then((something) => {
           console.log("Successfully logged out");
-         this.navigation.navigate("SignIn")
+          this.navigation.navigate("SignIn");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -85,6 +76,9 @@ export default {
           console.log(errorMessage);
           // ..
         });
+    },
+    onPressMessage() {
+      console.log("Messagepressed")
     },
   },
 
@@ -112,11 +106,47 @@ export default {
 
           if (fbMessage.text) {
             const text = fbMessage.text;
+            const email = fbMessage.email;
             console.log(fbMessage.text);
-            this.messages.push({ key, text });
+            console.log(fbMessage.email);
+            this.messages.push({ key, text, email });
           }
         }
       });
   },
 };
 </script>
+
+<style>
+.container {
+  background-color: white;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+.text-title-primary {
+  color: blue;
+  margin-top: 10;
+  margin-bottom: 5;
+  font-size: 25;
+}
+.heading {
+  color: green;
+  font-size: 25;
+}
+.message-input {
+  width: 55%;
+  margin-right: 2%;
+}
+
+.send-button {
+  width: 42%;
+}
+
+.message {
+  color: red;
+  margin-top: 10;
+  margin-bottom: 10;
+  font-size: 20;
+}
+</style>

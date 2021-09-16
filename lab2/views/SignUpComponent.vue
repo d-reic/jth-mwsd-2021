@@ -1,5 +1,6 @@
 <template>
   <view class="container">
+     <text class="heading">Sign up!</text>
     <text class="text-color-primary">Email</text>
     <text-input
       :style="{ height: 40, width: 100, borderColor: 'gray', borderWidth: 1 }"
@@ -94,5 +95,14 @@ export default {
 }
 .text-color-primary {
   color: blue;
+}
+.heading {
+  color: green;
+  font-size: 25;
+}
+.button {
+  margin-top: 5;
+  margin-bottom:5;
+  color: red;
 }
 </style>
