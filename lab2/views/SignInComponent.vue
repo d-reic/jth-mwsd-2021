@@ -13,6 +13,7 @@
     />
     <button title="Sign In" @press="signIn"></button>
     <button title="Sign Up" @press="signUp"></button>
+    <text class="text-color-primary" v-if="showError">{{errorMessage}}</text>
   </view>
 </template>
 
@@ -42,6 +43,8 @@ export default {
     return {
       email: "",
       password: "",
+      showError: false,
+      errorMessage: "",
     };
   },
   methods: {
@@ -57,20 +60,18 @@ export default {
           .signInWithEmailAndPassword(this.email, this.password)
           .then((userCredential) => {
             // Signed in
-            console.log("Signed in!");            
+            console.log("Signed in!");
             const user = userCredential.user;
             console.log("user", user);
             this.email = "";
             this.password = "";
+            this.showError = false;
+            this.errorMessage = "";
             this.navigation.navigate("Chat");
-          
           })
           .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode);
-            console.log(errorMessage);
-            // ..
+            this.errorMessage = error.message;
+            this.showError = true;
           });
       }
     },

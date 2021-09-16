@@ -12,6 +12,7 @@
     />
     <button title="Sign Up" @press="signUp"></button>
     <button title="Back to Sign In" @press="signIn"></button>
+    <text class="text-color-primary" v-if="showError">{{ errorMessage }}</text>
   </view>
 </template>
 
@@ -42,32 +43,32 @@ export default {
       email: "",
       password: "",
       user: {},
-      erroCode: "",
+      showError: false,
       errorMessage: "",
     };
   },
   methods: {
-    signUp() {      
+    signUp() {
       if (this.email == null || this.password == null) {
         console.log("Email or PW are empty!");
       } else {
-        firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(this.email, this.password)
           .then((userCredential) => {
             // Signed in
-            console.log("Signed in!")
-            this.email="";
-            this.password="";
+            console.log("Signed in!");
+            this.email = "";
+            this.password = "";
+            this.showError = false;
+            this.errorMessage = "";
             const user = userCredential.user;
             console.log("user", user);
-            this.navigation.navigate("Chat")
-           
+            this.navigation.navigate("Chat");
           })
           .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode);
-            console.log(errorMessage);
-            // ..
+            this.errorMessage = error.message;
+            this.showError = true;
           });
       }
     },
