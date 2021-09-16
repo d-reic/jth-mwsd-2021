@@ -4,10 +4,15 @@
 
 <script>
 import { createAppContainer, createStackNavigator } from "vue-native-router";
+import { LogBox } from 'react-native';
 
 import SignUpComponent from "./views/SignUpComponent.vue";
 import SignInComponent from "./views/SignInComponent.vue";
 import ChatComponent from "./views/ChatComponent.vue";
+
+LogBox.ignoreLogs([
+  "It appears that you are using old version of react-navigation library",
+]);
 
 const StackNavigator = createStackNavigator(
   {
