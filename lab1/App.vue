@@ -16,6 +16,8 @@ import VibrateScreen from "./views/VibrateScreen.vue"
 import LanguageScreen from "./views/LanguageScreen.vue"
 import MovementScreen from "./views/MovementScreen.vue"
 
+console.disableYellowBox = true;
+
 const StackNavigator = createStackNavigator(
   {
     Menu: MenuScreen,

@@ -40,12 +40,12 @@ export default {
       this.navigation.navigate('Menu')
     },
     getLocation: function () {
-      Permissions.askAsync(Permissions.LOCATION)
+      Location.requestForegroundPermissionsAsync()
         .then((status) => {
           if (!status.granted) {
             this.errorMessage = 'Permission to access location was denied'
           } else if (status.granted) {
-            Location.getCurrentPositionAsync({}).then((location) => {
+            Location.getLastKnownPositionAsync({}).then((location) => {
               this.location = location
               this.latitude = location.coords.latitude
               this.longitude = location.coords.longitude
