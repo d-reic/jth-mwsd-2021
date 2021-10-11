@@ -14,6 +14,12 @@
     ></text-input>
     <button class="send-button" title="Send" @press="onSendMessage"></button>
     <button class="button" title="Sign out" @press="signOut"></button>
+    <button
+      class="button"
+      title="Delete account"
+      @press="deleteAccount"
+    ></button>
+    <text class="text-color-primary" v-if="showError">{{ errorMessage }}</text>
   </view>
 </template>
 
@@ -45,12 +51,19 @@ export default {
     },
   },
   data() {
-    return { messageInput: "", messagesRef: "", messages: [] };
+    return {
+      messageInput: "",
+      messagesRef: "messages",
+      messages: [],
+      showError: false,
+      errorMessage: "",
+    };
   },
 
   methods: {
     onSendMessage() {
-      this.messagesRef.push(
+      var postref = firebase.database().ref("messages").push();
+      postref.set(
         { email: firebase.auth().currentUser.email, text: this.messageInput },
         (err) => {
           if (err) {
@@ -78,10 +91,42 @@ export default {
         });
     },
     onPressMessage() {
-      console.log("Messagepressed")
+      console.log("Messagepressed");
+    },
+    deleteAccount() {
+      const ref = firebase.database().ref("messages");
+      ref
+        .orderByChild("email")
+        .equalTo(firebase.auth().currentUser.email)
+        .once("value")
+        .then((snapshot) => {
+          snapshot.forEach(function (childSnapshot) {
+            var childKey = childSnapshot.key;
+            var childData = childSnapshot.val();
+            var deleteRef = ref.child(childKey);
+            deleteRef.remove();
+          });
+        });
+      firebase
+        .auth()
+        .currentUser.delete()
+        .then((something) => {
+          console.log("Successfully deleted account");
+          this.navigation.navigate("SignIn");
+          this.showError = false;
+          this.errorMessage = "";
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode);
+          console.log(errorMessage);
+          this.errorMessage = error.message;
+          this.showError = true;
+          // ..
+        });
     },
   },
-
   mounted() {
     if (!firebase.apps.length) {
       // Prevent "hot reloading" to cause errors
