@@ -7,6 +7,17 @@
       <button class="button" title="Edit" @press="editMessage"></button>
       <button class="button" title="Delete" @press="deleteMessage"></button>
     </view>
+    <view v-if="showEditTextfield">
+      <text-input
+        :style="{ height: 40, width: 100, borderColor: 'gray', borderWidth: 1 }"
+        v-model="text"
+      />
+      <button
+        class="button"
+        title="Update message"
+        @press="updateMessage"
+      ></button>
+    </view>
   </view>
 </template>
 
@@ -25,6 +36,8 @@ export default {
   data() {
     return {
       showButtons: false,
+      text: "",
+      showEditTextfield: false,
     };
   },
   methods: {
@@ -40,13 +53,24 @@ export default {
       }
     },
     editMessage() {
-      //edit message
+      //edit
+      this.showEditTextfield = true;
     },
     deleteMessage() {
       // delete message
       const ref = firebase.database().ref("messages");
       var deleteRef = ref.child(this.item.key);
       deleteRef.remove();
+    },
+    updateMessage() {
+      // update message
+      const ref = firebase.database().ref("messages");
+      var updateRef = ref.child(this.item.key);
+      updateRef.update({
+        text: this.text,
+      });
+      this.showButtons = false;
+      this.showEditTextfield = false;
     },
   },
 };
