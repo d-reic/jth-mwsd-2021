@@ -1,11 +1,11 @@
 <template>
   <view class="container">
     <text class="heading">Chat!</text>
-    <touchable-opacity :on-press="onPressMessage">
-      <text class="message" v-for="message in messages" :key="message.key"
-        >User {{ message.email }} sent this message: {{ message.text }}</text
-      ></touchable-opacity
-    >
+   <message-component     
+      v-for="message in messages"
+      :key="message.key"
+      :item="message"
+    />
     <text class="text-title-primary">Enter message</text>
     <text-input
       class="message-input"
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import MessageComponent from "./../components/MessageComponent.vue"
 // Firebase App (the core Firebase SDK) is always required and
 // must be listed before other Firebase SDKs
 import firebase from "firebase/app";
@@ -45,6 +46,7 @@ const firebaseConfig = {
 };
 
 export default {
+  components: {MessageComponent},
   props: {
     navigation: {
       type: Object,
