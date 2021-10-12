@@ -62,7 +62,6 @@ export default {
             // Signed in
             console.log("Signed in!");
             const user = userCredential.user;
-            console.log("user", user);
             this.email = "";
             this.password = "";
             this.showError = false;

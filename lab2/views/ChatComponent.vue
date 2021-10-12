@@ -154,8 +154,6 @@ export default {
           if (fbMessage.text) {
             const text = fbMessage.text;
             const email = fbMessage.email;
-            console.log(fbMessage.text);
-            console.log(fbMessage.email);
             this.messages.push({ key, text, email });
           }
         }

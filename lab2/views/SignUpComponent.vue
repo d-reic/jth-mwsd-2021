@@ -64,7 +64,6 @@ export default {
             this.showError = false;
             this.errorMessage = "";
             const user = userCredential.user;
-            console.log("user", user);
             this.navigation.navigate("Chat");
           })
           .catch((error) => {
