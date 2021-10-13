@@ -12,6 +12,7 @@ import ChatComponent from "./views/ChatComponent.vue";
 
 LogBox.ignoreLogs([
   "It appears that you are using old version of react-navigation library",
+  "Setting a timer for a long period of time"
 ]);
 
 const StackNavigator = createStackNavigator(
