@@ -1,30 +1,50 @@
 <template>
   <view class="container">
-    <text class="heading">Chat!</text>
-   <message-component     
-      v-for="message in messages"
-      :key="message.key"
-      :item="message"
-    />
-    <text class="text-title-primary">Enter message</text>
+    <text class="heading">CHAT!</text>
+    <scroll-view
+      :content-container-style="{
+        contentContainer: {
+          width: 500,
+          height: 200,
+        },
+      }"
+    >
+      <message-component
+        v-for="message in messages"
+        :key="message.key"
+        :item="message"
+      />
+    </scroll-view>
+
+    <text class="text-color-primary">Enter message below</text>
     <text-input
       class="message-input"
       v-model="messageInput"
-      :style="{ height: 40, width: 100, borderColor: 'gray', borderWidth: 1 }"
+      :style="{
+        height: 40,
+        width: 300,
+        borderRadius: 5,
+        borderColor: 'black',
+        borderWidth: 5,
+        backgroundColor: 'white',
+        padding: 8,
+      }"
     ></text-input>
-    <button class="send-button" title="Send" @press="onSendMessage"></button>
-    <button class="button" title="Sign out" @press="signOut"></button>
-    <button
-      class="button"
-      title="Delete account"
-      @press="deleteAccount"
-    ></button>
+    <touchable-opacity class="button" :on-press="onSendMessage">
+      <text>SEND</text>
+    </touchable-opacity>
+    <touchable-opacity class="button" :on-press="signOut">
+      <text>SIGN OUT</text>
+    </touchable-opacity>
+    <touchable-opacity class="button" :on-press="deleteAccount">
+      <text>DELETE ACCOUNT</text>
+    </touchable-opacity>
     <text class="text-color-primary" v-if="showError">{{ errorMessage }}</text>
   </view>
 </template>
 
 <script>
-import MessageComponent from "./../components/MessageComponent.vue"
+import MessageComponent from "./../components/MessageComponent.vue";
 // Firebase App (the core Firebase SDK) is always required and
 // must be listed before other Firebase SDKs
 import firebase from "firebase/app";
@@ -46,7 +66,7 @@ const firebaseConfig = {
 };
 
 export default {
-  components: {MessageComponent},
+  components: { MessageComponent },
   props: {
     navigation: {
       type: Object,
@@ -164,34 +184,29 @@ export default {
 
 <style>
 .container {
-  background-color: white;
+  background-color: gray;
   align-items: center;
   justify-content: center;
   flex: 1;
 }
-.text-title-primary {
-  color: blue;
-  margin-top: 10;
-  margin-bottom: 5;
-  font-size: 25;
+.text-color-primary {
+  color: white;
+  padding: 8px;
 }
 .heading {
-  color: green;
-  font-size: 25;
+  color: orange;
+  font-size: 50;
+  margin-bottom: 54px;
+  background-color: blue;
+  padding: 16;
+  border-radius: 50;
 }
-.message-input {
-  width: 55%;
-  margin-right: 2%;
-}
-
-.send-button {
-  width: 42%;
-}
-
-.message {
-  color: red;
-  margin-top: 10;
-  margin-bottom: 10;
-  font-size: 20;
+.button {
+  padding: 16px;
+  background-color: goldenrod;
+  border-radius: 50;
+  margin: 8px;
+  text-align: center;
+  width: 200;
 }
 </style>

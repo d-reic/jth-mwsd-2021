@@ -1,18 +1,38 @@
 <template>
   <view class="container">
-     <text class="heading">Sign up!</text>
+    <text class="heading">SIGN UP!</text>
     <text class="text-color-primary">Email</text>
     <text-input
-      :style="{ height: 40, width: 100, borderColor: 'gray', borderWidth: 1 }"
+      :style="{
+        height: 40,
+        width: 300,
+        borderRadius: 5,
+        borderColor: 'black',
+        borderWidth: 5,
+        backgroundColor: 'white',
+        padding: 8,
+      }"
       v-model="email"
     />
     <text class="text-color-primary">Password</text>
     <text-input
-      :style="{ height: 40, width: 100, borderColor: 'gray', borderWidth: 1 }"
+      :style="{
+        height: 40,
+        width: 300,
+        borderRadius: 5,
+        borderColor: 'black',
+        borderWidth: 5,
+        backgroundColor: 'white',
+        padding: 8,
+      }"
       v-model="password"
     />
-    <button title="Sign Up" @press="signUp"></button>
-    <button title="Back to Sign In" @press="signIn"></button>
+    <touchable-opacity class="button" :on-press="signUp">
+      <text>SIGN UP</text>
+    </touchable-opacity>
+    <touchable-opacity class="button" :on-press="signIn">
+      <text>🔙</text>
+    </touchable-opacity>
     <text class="text-color-primary" v-if="showError">{{ errorMessage }}</text>
   </view>
 </template>
@@ -87,21 +107,27 @@ export default {
 
 <style>
 .container {
-  background-color: white;
+  background-color: gray;
   align-items: center;
   justify-content: center;
   flex: 1;
 }
 .text-color-primary {
-  color: blue;
+  color: white;
+  padding: 8px;
 }
 .heading {
-  color: green;
-  font-size: 25;
+  color: yellow;
+  font-size: 50;
+  margin-bottom: 64px;
+  background-color: purple;
+  padding: 16;
+  border-radius: 50;
 }
 .button {
-  margin-top: 5;
-  margin-bottom:5;
-  color: red;
+  padding: 16px;
+  background-color: lightblue;
+  border-radius: 50;
+  margin: 8px;
 }
 </style>
