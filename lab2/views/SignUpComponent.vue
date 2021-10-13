@@ -41,18 +41,6 @@
 import firebase from "firebase/app";
 require("firebase/auth");
 
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyBrma7NK0kAccH0lzJD_DvceOTDCSYKKfo",
-  authDomain: "jth-mwsd-2021-reda21bw.firebaseapp.com",
-  databaseURL:
-    "https://jth-mwsd-2021-reda21bw-default-rtdb.europe-west1.firebasedatabase.app/",
-  projectId: "jth-mwsd-2021-reda21bw",
-  storageBucket: "jth-mwsd-2021-reda21bw.appspot.com",
-  messagingSenderId: "934426003388",
-  appId: "1:934426003388:web:442447560976af1d818db9",
-};
-
 export default {
   props: {
     navigation: {
